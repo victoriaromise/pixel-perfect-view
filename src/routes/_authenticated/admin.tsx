@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { notifyPayment } from "@/lib/notify.functions";
 import { useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -78,6 +79,7 @@ function AdminPanel() {
     const note = status === "rejected" ? window.prompt("Reason shown to the student (optional):") ?? "" : null;
     const { error } = await supabase.rpc("review_payment", { _id: id, _status: status, _note: note ?? "" });
     if (error) { toast.error(error.message); return; }
+    notifyPayment({ data: { id, event: "reviewed" } }).catch(() => {});
     toast.success(status === "approved" ? "Payment approved" : status === "rejected" ? "Payment rejected" : "Marked pending");
     qc.invalidateQueries({ queryKey: ["admin-data"] });
   }
