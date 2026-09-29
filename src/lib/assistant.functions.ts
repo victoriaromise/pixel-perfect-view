@@ -27,7 +27,7 @@ export const askAssistant = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const key = process.env["GOOGLE_API_KEY"];
     if (!key) throw new Error("Assistant is not configured");
-    const res = await fetch(
+    const call = () => fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
       {
         method: "POST",
@@ -41,10 +41,15 @@ export const askAssistant = createServerFn({ method: "POST" })
         }),
       },
     );
+    let res = await call();
+    for (let i = 0; i < 2 && res.status === 503; i++) {
+      await new Promise((r) => setTimeout(r, 1500 * (i + 1)));
+      res = await call();
+    }
     if (!res.ok) {
       const body = await res.text();
       console.error(`Gemini failed [${res.status}]: ${body}`);
-      if (res.status === 429) return { reply: "I'm getting a lot of questions right now — please try again in a minute." };
+      if (res.status === 429 || res.status === 503) return { reply: "I'm getting a lot of questions right now — please try again in a minute." };
       throw new Error(`Assistant unavailable [${res.status}]`);
     }
     const json = (await res.json()) as {
