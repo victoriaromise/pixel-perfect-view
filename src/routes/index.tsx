@@ -18,7 +18,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const FAQ = [
+const FAQ: [string, string][] = [
   ["Who are these courses for?", "Students, business owners, working professionals, content creators, entrepreneurs and complete beginners who want practical AI skills."],
   ["Do I need previous AI experience?", "No. Every course starts from the basics and builds up to professional results."],
   ["How do I pay?", "Pay the course fee to Opay, account number 9012125850, then submit your payment receipt on the course page."],
