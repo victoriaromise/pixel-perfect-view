@@ -6,10 +6,10 @@ const ADMINS = ["vpromise06@gmail.com", "vicolabisi2020@gmail.com", "aispecialis
 const GATEWAY = "https://connector-gateway.lovable.dev/resend";
 
 async function send(to: string[], subject: string, text: string) {
-  const lk = process.env.LOVABLE_API_KEY;
-  const rk = process.env.RESEND_API_KEY;
+  const lk = process.env['LOVABLE_API_KEY'];
+  const rk = process.env['RESEND_API_KEY'];
   if (!lk || !rk) throw new Error("Email is not configured");
-  const from = process.env.EMAIL_FROM || "VICTOR PROMISE <onboarding@resend.dev>";
+  const from = process.env['EMAIL_FROM'] || "VICTOR PROMISE <onboarding@resend.dev>";
   const res = await fetch(`${GATEWAY}/emails`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${lk}`, "X-Connection-Api-Key": rk },
