@@ -16,9 +16,9 @@ export const Route = createFileRoute("/courses/")({
   }),
   component: () => (
     <SiteLayout>
-      <section className="mx-auto max-w-6xl px-5 py-16">
-        <h1 className="text-5xl">All courses</h1>
-        <p className="mb-10 mt-3 text-muted-foreground">Choose one skill, or take the Masterclass for everything.</p>
+      <section className="mx-auto max-w-6xl px-5 py-10 sm:py-16">
+        <h1 className="text-4xl sm:text-5xl">All courses</h1>
+        <p className="mb-7 mt-3 leading-relaxed text-muted-foreground sm:mb-10">Choose one skill, or take the Masterclass for everything.</p>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {COURSES.map((c) => <CourseCard key={c.slug} course={c} />)}
         </div>

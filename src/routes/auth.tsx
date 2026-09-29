@@ -76,12 +76,12 @@ function AuthPage() {
 
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-md px-5 py-16">
-        <h1 className="text-4xl">{mode === "signin" ? "Welcome back" : "Create your account"}</h1>
+      <section className="mx-auto max-w-md px-5 py-10 sm:py-16">
+        <h1 className="text-3xl sm:text-4xl">{mode === "signin" ? "Welcome back" : "Create your account"}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {mode === "signin" ? "Sign in to submit receipts and view your courses." : "Join VICTOR PROMISE and start learning practical AI."}
         </p>
-        <button onClick={google} className="mt-8 w-full border border-border bg-card px-4 py-3 not-italic hover:border-secondary">
+        <button onClick={google} className="mt-8 min-h-12 w-full border border-border bg-card px-4 py-3 not-italic hover:border-primary">
           Continue with Google
         </button>
         <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
@@ -91,7 +91,7 @@ function AuthPage() {
           )}
           <input className={inputCls} type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
           <input className={inputCls} type="password" placeholder="Password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-          <button disabled={busy} className="mt-2 border border-secondary bg-primary px-4 py-3 font-semibold not-italic text-primary-foreground hover:bg-secondary disabled:opacity-60">
+          <button disabled={busy} className="mt-2 min-h-12 border border-primary bg-primary px-4 py-3 font-semibold not-italic text-primary-foreground hover:bg-secondary disabled:opacity-60">
             {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
           </button>
         </form>

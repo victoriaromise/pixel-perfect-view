@@ -39,15 +39,15 @@ function CoursePage() {
   const { course } = Route.useLoaderData();
   return (
     <SiteLayout>
-      <section className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-[1fr_1.1fr]">
+      <section className="mx-auto grid max-w-6xl gap-7 px-5 py-8 sm:gap-10 sm:py-14 md:grid-cols-[1fr_1.1fr]">
         <div className="border border-border bg-card md:sticky md:top-24 md:self-start">
           <img src={course.flyer} alt={`${course.title} flyer`} className="w-full object-contain" />
         </div>
         <div>
           <p className="text-sm text-primary">COURSE {course.number}</p>
-          <h1 className="mt-2 text-4xl leading-tight md:text-5xl">{course.title}</h1>
+          <h1 className="mt-2 text-3xl leading-tight sm:text-4xl md:text-5xl">{course.title}</h1>
           <p className="mt-3 text-lg text-muted-foreground">{course.subtitle}</p>
-          <p className="mt-6 text-5xl font-bold not-italic text-accent">{formatNaira(course.price)}</p>
+          <p className="mt-5 text-4xl font-bold not-italic text-accent sm:text-5xl">{formatNaira(course.price)}</p>
           {course.slug === "advanced-ai-masterclass" && (
             <p className="mt-4 border-l-2 border-accent pl-4 text-sm">
               The complete curriculum in one course, for people who want every skill instead of buying courses individually.
@@ -69,7 +69,7 @@ function CoursePage() {
             ))}
           </div>
 
-          <div id="pay" className="mt-12 border border-primary bg-card p-6">
+          <div id="pay" className="mt-12 border border-primary bg-card p-4 sm:p-6">
             <h2 className="text-2xl">Payment</h2>
             <p className="mt-2 text-sm text-muted-foreground">Transfer {formatNaira(course.price)} to:</p>
             <div className="mt-4 grid gap-1 not-italic">
@@ -83,9 +83,9 @@ function CoursePage() {
             <div className="mt-6"><p className="mb-3 text-sm text-muted-foreground">Questions? Contact us:</p><ContactButtons /></div>
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link to="/" className="border border-border px-5 py-3 hover:border-secondary">Back Home</Link>
-            <Link to="/courses" className="border border-secondary bg-primary px-5 py-3 font-semibold not-italic text-primary-foreground hover:bg-secondary">Explore More Courses</Link>
+          <div className="mt-10 grid gap-3 sm:flex sm:flex-wrap">
+            <Link to="/" className="flex min-h-12 items-center justify-center border border-border px-5 py-3 text-center hover:border-primary">Back Home</Link>
+            <Link to="/courses" className="flex min-h-12 items-center justify-center border border-primary bg-primary px-5 py-3 text-center font-semibold not-italic text-primary-foreground hover:bg-secondary">Explore More Courses</Link>
           </div>
         </div>
       </section>

@@ -45,7 +45,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen text-foreground">
       <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3">
           <Logo />
           <nav className="hidden items-center gap-7 text-sm md:flex">
             {NAV.map((n) => (
@@ -58,18 +58,19 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               Enroll now
             </Link>
           </nav>
-          <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+          <button className="grid h-11 w-11 shrink-0 place-items-center md:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu">
             {open ? <X /> : <Menu />}
           </button>
         </div>
         {open && (
-          <nav className="flex flex-col gap-4 border-t border-border px-5 py-4 md:hidden">
+          <nav className="flex flex-col border-t border-border px-5 py-2 md:hidden">
             {NAV.map((n) => (
-              <Link key={n.label} to={n.to} {...(n.hash ? { hash: n.hash } : {})} onClick={() => setOpen(false)}>
+              <Link key={n.label} to={n.to} {...(n.hash ? { hash: n.hash } : {})} onClick={() => setOpen(false)} className="flex min-h-12 items-center border-b border-border text-sm font-medium">
                 {n.label}
               </Link>
             ))}
-            {accountLinks}
+            <div className="flex min-h-12 flex-col justify-center gap-3 py-3">{accountLinks}</div>
+            <Link to="/courses" onClick={() => setOpen(false)} className="mb-3 flex min-h-12 items-center justify-center bg-primary px-4 font-semibold text-primary-foreground">Enroll now</Link>
           </nav>
         )}
       </header>
@@ -90,11 +91,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
 export function ContactButtons() {
   return (
-    <div className="flex flex-wrap gap-3">
-      <a href={CONTACT.whatsappUrl} target="_blank" rel="noreferrer" className="border border-secondary bg-primary px-5 py-3 font-semibold not-italic text-primary-foreground hover:bg-secondary">
+    <div className="grid gap-3 sm:flex sm:flex-wrap">
+      <a href={CONTACT.whatsappUrl} target="_blank" rel="noreferrer" className="flex min-h-12 items-center justify-center border border-primary bg-primary px-5 py-3 text-center font-semibold not-italic text-primary-foreground hover:bg-secondary">
         WhatsApp {CONTACT.whatsappDisplay}
       </a>
-      <a href={CONTACT.telegramUrl} target="_blank" rel="noreferrer" className="border border-primary px-5 py-3 font-semibold not-italic text-secondary hover:bg-muted">
+      <a href={CONTACT.telegramUrl} target="_blank" rel="noreferrer" className="flex min-h-12 items-center justify-center border border-primary px-5 py-3 text-center font-semibold not-italic text-primary hover:bg-muted">
         Telegram @victorpromisee
       </a>
     </div>
