@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { ContactButtons } from "./SiteLayout";
 import type { Course } from "@/lib/courses";
+import { notifyPayment } from "@/lib/notify.functions";
 
 const ALLOWED = ["image/jpeg", "image/png", "application/pdf"];
 
@@ -56,16 +57,17 @@ export function ReceiptUpload({ course }: { course: Course }) {
     const path = `${session.user.id}/${course.slug}-${Date.now()}.${ext}`;
     const up = await supabase.storage.from("receipts").upload(path, file, { contentType: file.type });
     if (up.error) { setBusy(false); toast.error("Upload failed. Please try again."); return; }
-    const { error } = await supabase.from("payment_submissions").insert({
+    const { data: row, error } = await supabase.from("payment_submissions").insert({
       user_id: session.user.id,
       course_slug: course.slug,
       course_title: course.title,
       amount: course.price,
       receipt_path: path,
-    });
+    }).select("id").single();
     setBusy(false);
     if (error) { toast.error("Could not save your submission. Please try again."); return; }
     setDone(true);
+    if (row) notifyPayment({ data: { id: row.id, event: "submitted" } }).catch(() => {});
   }
 
   return (
