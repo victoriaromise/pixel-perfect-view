@@ -75,12 +75,12 @@
   --popover-foreground: oklch(0.25 0.03 125);
   --primary: oklch(0.55 0.13 124);
   --primary-foreground: oklch(0.98 0.01 110);
-  --secondary: oklch(0.78 0.17 124);
-  --secondary-foreground: oklch(0.22 0.03 125);
+  --secondary: oklch(0.48 0.12 124);
+  --secondary-foreground: oklch(0.98 0.01 110);
   --muted: oklch(0.94 0.015 115);
   --muted-foreground: oklch(0.45 0.03 115);
-  --accent: oklch(0.78 0.15 55);
-  --accent-foreground: oklch(0.22 0.03 125);
+  --accent: oklch(0.64 0.17 48);
+  --accent-foreground: oklch(0.98 0.01 110);
   --destructive: oklch(0.6 0.2 27);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(0.55 0.13 124 / 25%);
@@ -110,10 +110,15 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    min-width: 320px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 }
 
 @layer base {
   body { font-family: var(--font-sans); background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 48px 48px; }
   h1, h2, h3, h4 { font-family: var(--font-display); font-style: normal; }
+  button, a, input { touch-action: manipulation; }
 }

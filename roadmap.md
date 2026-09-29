@@ -4,3 +4,4 @@
 - [x] Phase 3: receipt upload + student dashboard
 - [x] Phase 4: admin review, stats, search, ban users
 - [ ] Phase 5: transactional emails (welcome, receipt alert, approval, rejection) — blocked: needs a verified sending email domain from the user
+- [x] Mobile refinement: Android/iPhone hierarchy, touch targets, compact assistant, and sign-in before opening a flyer

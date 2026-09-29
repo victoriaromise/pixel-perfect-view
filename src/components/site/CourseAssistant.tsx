@@ -37,12 +37,12 @@ export function CourseAssistant() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-3 right-3 z-50 sm:bottom-4 sm:right-4">
       {open ? (
-        <div className="flex h-[28rem] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
+        <div className="flex h-[min(32rem,calc(100dvh-5.5rem))] w-[calc(100vw-1.5rem)] flex-col overflow-hidden rounded-xl border border-border bg-card shadow-xl sm:h-[28rem] sm:w-[22rem]">
           <div className="flex items-center justify-between bg-primary px-4 py-3 text-primary-foreground">
             <span className="font-semibold">Course Assistant</span>
-            <button onClick={() => setOpen(false)} aria-label="Close assistant"><X className="h-5 w-5" /></button>
+            <button onClick={() => setOpen(false)} aria-label="Close assistant" className="grid h-11 w-11 place-items-center"><X className="h-5 w-5" /></button>
           </div>
           <div className="flex-1 space-y-3 overflow-y-auto p-3 text-sm">
             {msgs.map((m, i) => (
@@ -63,7 +63,7 @@ export function CourseAssistant() {
               placeholder="Ask about a course…"
               className="flex-1 rounded-lg border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
             />
-            <button type="submit" disabled={busy} aria-label="Send" className="rounded-lg bg-primary px-3 text-primary-foreground disabled:opacity-50">
+            <button type="submit" disabled={busy} aria-label="Send" className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground disabled:opacity-50">
               <Send className="h-4 w-4" />
             </button>
           </form>
@@ -71,9 +71,10 @@ export function CourseAssistant() {
       ) : (
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-2 rounded-full bg-primary px-4 py-3 font-semibold text-primary-foreground shadow-lg"
+          aria-label="Ask a course question"
+          className="grid h-12 w-12 place-items-center rounded-full bg-primary font-semibold text-primary-foreground shadow-lg sm:flex sm:w-auto sm:gap-2 sm:px-4"
         >
-          <MessageCircle className="h-5 w-5" /> Ask a question
+          <MessageCircle className="h-5 w-5" /> <span className="hidden sm:inline">Ask a question</span>
         </button>
       )}
     </div>
