@@ -114,6 +114,6 @@
 }
 
 @layer base {
-  body { font-family: var(--font-sans); font-style: italic; background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 48px 48px; }
+  body { font-family: var(--font-sans); background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); background-size: 48px 48px; }
   h1, h2, h3, h4 { font-family: var(--font-display); font-style: normal; }
 }
