@@ -13,6 +13,8 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Practical AI courses for students, creators, professionals and business owners." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://project--0531d8db-80d3-4e74-bb7f-bb90ca12d4d6.lovable.app/__l5e/assets-v1/3bf3d181-ac49-4924-a05c-b369a8575d59/flyer-masterclass.jpg" },
+      { name: "twitter:image", content: "https://project--0531d8db-80d3-4e74-bb7f-bb90ca12d4d6.lovable.app/__l5e/assets-v1/3bf3d181-ac49-4924-a05c-b369a8575d59/flyer-masterclass.jpg" },
     ],
   }),
   component: Home,
