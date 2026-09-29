@@ -50,7 +50,7 @@ function AuthPage() {
       password: z.string().min(8, "Password must be at least 8 characters").max(72),
     });
     const parsed = schema.safeParse(form);
-    if (!parsed.success) return toast.error(parsed.error.issues[0]!.message);
+    if (!parsed.success) { toast.error(parsed.error.issues[0]!.message); return; }
     setBusy(true);
     if (mode === "signup") {
       const { data, error } = await supabase.auth.signUp({
@@ -59,12 +59,12 @@ function AuthPage() {
         options: { data: { full_name: parsed.data.name }, emailRedirectTo: `${window.location.origin}/auth?redirect=${encodeURIComponent(target)}` },
       });
       setBusy(false);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
       if (!data.session) toast.success("Check your email to confirm your account, then sign in.");
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email: parsed.data.email, password: parsed.data.password });
       setBusy(false);
-      if (error) return toast.error(error.message);
+      if (error) { toast.error(error.message); return; }
     }
   }
 

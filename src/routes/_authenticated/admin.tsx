@@ -71,20 +71,20 @@ function AdminPanel() {
 
   async function viewReceipt(path: string) {
     const { data, error } = await supabase.storage.from("receipts").createSignedUrl(path, 300);
-    if (error || !data) return toast.error("Could not open receipt.");
+    if (error || !data) { toast.error("Could not open receipt."); return; }
     window.open(data.signedUrl, "_blank", "noopener");
   }
   async function review(id: string, status: PaymentStatus) {
     const note = status === "rejected" ? window.prompt("Reason shown to the student (optional):") ?? "" : null;
     const { error } = await supabase.rpc("review_payment", { _id: id, _status: status, _note: note ?? "" });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success(status === "approved" ? "Payment approved" : status === "rejected" ? "Payment rejected" : "Marked pending");
     qc.invalidateQueries({ queryKey: ["admin-data"] });
   }
   async function setBan(userId: string, banned: boolean) {
     if (banned && !window.confirm("Ban this user? They will lose access.")) return;
     const { error } = await supabase.rpc("set_account_status", { _user_id: userId, _status: banned ? "banned" : "active" });
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success(banned ? "User banned" : "User restored");
     qc.invalidateQueries({ queryKey: ["admin-data"] });
   }

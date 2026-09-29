@@ -48,14 +48,14 @@ export function ReceiptUpload({ course }: { course: Course }) {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!file || !session) return toast.error("Choose your receipt file first.");
-    if (!ALLOWED.includes(file.type)) return toast.error("Upload a JPG, PNG or PDF.");
-    if (file.size > 10 * 1024 * 1024) return toast.error("File must be under 10MB.");
+    if (!file || !session) { toast.error("Choose your receipt file first."); return; }
+    if (!ALLOWED.includes(file.type)) { toast.error("Upload a JPG, PNG or PDF."); return; }
+    if (file.size > 10 * 1024 * 1024) { toast.error("File must be under 10MB."); return; }
     setBusy(true);
     const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
     const path = `${session.user.id}/${course.slug}-${Date.now()}.${ext}`;
     const up = await supabase.storage.from("receipts").upload(path, file, { contentType: file.type });
-    if (up.error) { setBusy(false); return toast.error("Upload failed. Please try again."); }
+    if (up.error) { setBusy(false); toast.error("Upload failed. Please try again."); return; }
     const { error } = await supabase.from("payment_submissions").insert({
       user_id: session.user.id,
       course_slug: course.slug,
@@ -64,7 +64,7 @@ export function ReceiptUpload({ course }: { course: Course }) {
       receipt_path: path,
     });
     setBusy(false);
-    if (error) return toast.error("Could not save your submission. Please try again.");
+    if (error) { toast.error("Could not save your submission. Please try again."); return; }
     setDone(true);
   }
 
