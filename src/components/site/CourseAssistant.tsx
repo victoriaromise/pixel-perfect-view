@@ -14,7 +14,9 @@ export function CourseAssistant() {
     { role: "assistant", content: "Hi! I can answer questions about our AI courses, prices and how to enrol. What would you like to know?" },
   ]);
   const endRef = useRef<HTMLDivElement>(null);
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), [msgs, open]);
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [msgs, open]);
 
   async function send(e: React.FormEvent) {
     e.preventDefault();

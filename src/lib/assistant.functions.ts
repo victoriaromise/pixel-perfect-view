@@ -26,7 +26,7 @@ export const askAssistant = createServerFn({ method: "POST" })
   .inputValidator((d) => Input.parse(d))
   .handler(async ({ data }) => {
     const key = process.env["GOOGLE_API_KEY"];
-    if (!key) throw new Error("Assistant is not configured");
+    if (!key) return { reply: "The assistant isn't set up yet. Please message us on WhatsApp." };
     const call = () => fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
       {
@@ -50,7 +50,7 @@ export const askAssistant = createServerFn({ method: "POST" })
       const body = await res.text();
       console.error(`Gemini failed [${res.status}]: ${body}`);
       if (res.status === 429 || res.status === 503) return { reply: "I'm getting a lot of questions right now — please try again in a minute." };
-      throw new Error(`Assistant unavailable [${res.status}]`);
+      return { reply: "Sorry, the assistant is unavailable right now. Please try again shortly or message us on WhatsApp." };
     }
     const json = (await res.json()) as {
       candidates?: { content?: { parts?: { text?: string }[] } }[];
