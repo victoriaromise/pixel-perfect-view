@@ -40,6 +40,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
+    // A page piece went stale after an update: reload once to fetch the fresh version.
+    if (/dynamically imported module|Importing a module script failed/i.test(error?.message ?? "")) {
+      const key = "vp-chunk-reload";
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, "1");
+        window.location.reload();
+        return;
+      }
+    }
+    sessionStorage.removeItem("vp-chunk-reload");
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
