@@ -14,16 +14,132 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      payment_submissions: {
+        Row: {
+          admin_note: string | null
+          amount: number
+          course_slug: string
+          course_title: string
+          created_at: string
+          currency: string
+          id: string
+          provider: string
+          provider_reference: string | null
+          receipt_path: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: Database["public"]["Enums"]["payment_status"]
+          user_id: string
+        }
+        Insert: {
+          admin_note?: string | null
+          amount: number
+          course_slug: string
+          course_title: string
+          created_at?: string
+          currency?: string
+          id?: string
+          provider?: string
+          provider_reference?: string | null
+          receipt_path: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["payment_status"]
+          user_id: string
+        }
+        Update: {
+          admin_note?: string | null
+          amount?: number
+          course_slug?: string
+          course_title?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          provider?: string
+          provider_reference?: string | null
+          receipt_path?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["payment_status"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          account_status: Database["public"]["Enums"]["account_status"]
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+        }
+        Insert: {
+          account_status?: Database["public"]["Enums"]["account_status"]
+          created_at?: string
+          email?: string
+          full_name?: string
+          id: string
+        }
+        Update: {
+          account_status?: Database["public"]["Enums"]["account_status"]
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_active_user: { Args: { _user_id: string }; Returns: boolean }
+      review_payment: {
+        Args: {
+          _id: string
+          _note: string
+          _status: Database["public"]["Enums"]["payment_status"]
+        }
+        Returns: undefined
+      }
+      set_account_status: {
+        Args: {
+          _status: Database["public"]["Enums"]["account_status"]
+          _user_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      account_status: "active" | "banned"
+      app_role: "admin" | "user"
+      payment_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +266,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      account_status: ["active", "banned"],
+      app_role: ["admin", "user"],
+      payment_status: ["pending", "approved", "rejected"],
+    },
   },
 } as const

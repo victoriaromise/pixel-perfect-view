@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790688799536,
+      "tag": "0000_courses_auth_payments",
+      "breakpoints": true
+    }
+  ]
 }

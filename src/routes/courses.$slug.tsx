@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout, ContactButtons } from "@/components/site/SiteLayout";
+import { ReceiptUpload } from "@/components/site/ReceiptUpload";
 import { CONTACT, formatNaira, getCourse } from "@/lib/courses";
 
 export const Route = createFileRoute("/courses/$slug")({
@@ -77,10 +78,9 @@ function CoursePage() {
               <span className="mt-2 text-sm text-muted-foreground">Account number</span>
               <span className="text-2xl font-bold tracking-wider text-secondary">{CONTACT.opayAccount}</span>
             </div>
-            <p className="mt-5 text-sm text-muted-foreground">
-              Receipt upload is coming next. For now, send your receipt to VICTOR PROMISE for manual confirmation. Payment is only confirmed after it's checked.
-            </p>
-            <div className="mt-5"><ContactButtons /></div>
+            <p className="mt-5 text-sm text-muted-foreground">After paying, upload your receipt below. Your enrollment is confirmed only after VICTOR PROMISE checks the payment.</p>
+            <div className="mt-5 border-t border-border pt-5"><ReceiptUpload course={course} /></div>
+            <div className="mt-6"><p className="mb-3 text-sm text-muted-foreground">Questions? Contact us:</p><ContactButtons /></div>
           </div>
 
           <div className="mt-10 flex flex-wrap gap-3">

@@ -2,6 +2,10 @@ import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
 import { CONTACT } from "@/lib/courses";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 export function Logo() {
   return (
@@ -21,6 +25,23 @@ const NAV = [
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const { session, isAdmin } = useAuth();
+  const qc = useQueryClient();
+  const navigate = useNavigate();
+  async function signOut() {
+    await supabase.auth.signOut();
+    qc.clear();
+    navigate({ to: "/" });
+  }
+  const accountLinks = session ? (
+    <>
+      <Link to="/dashboard" onClick={() => setOpen(false)} className="text-muted-foreground hover:text-secondary">Dashboard</Link>
+      {isAdmin && <Link to="/admin" onClick={() => setOpen(false)} className="text-accent hover:underline">Admin</Link>}
+      <button onClick={signOut} className="text-left text-muted-foreground hover:text-secondary">Sign out</button>
+    </>
+  ) : (
+    <Link to="/auth" onClick={() => setOpen(false)} className="text-muted-foreground hover:text-secondary">Sign in</Link>
+  );
   return (
     <div className="min-h-screen text-foreground">
       <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
@@ -32,6 +53,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 {n.label}
               </Link>
             ))}
+            {accountLinks}
             <Link to="/courses" className="border border-secondary bg-primary px-4 py-2 font-semibold not-italic text-primary-foreground hover:bg-secondary">
               Enroll now
             </Link>
@@ -47,6 +69,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                 {n.label}
               </Link>
             ))}
+            {accountLinks}
           </nav>
         )}
       </header>

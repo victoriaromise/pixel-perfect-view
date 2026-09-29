@@ -7,6 +7,10 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
+  vite: {
+    // Pre-bundle deps first loaded on the sign-in page so Vite does not re-optimize mid-session (duplicate React).
+    optimizeDeps: { include: ["@lovable.dev/cloud-auth-js", "@supabase/supabase-js", "zod", "sonner"] },
+  },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
