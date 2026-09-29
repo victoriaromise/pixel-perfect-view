@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/sonner";
+import { CourseAssistant } from "@/components/site/CourseAssistant";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -134,6 +135,7 @@ function RootComponent() {
       <AuthProvider>
         <Outlet />
         <Toaster />
+        <CourseAssistant />
       </AuthProvider>
     </QueryClientProvider>
   );
