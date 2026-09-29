@@ -28,7 +28,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <Logo />
           <nav className="hidden items-center gap-7 text-sm md:flex">
             {NAV.map((n) => (
-              <Link key={n.label} to={n.to} hash={n.hash || undefined} className="text-muted-foreground transition-colors hover:text-secondary">
+              <Link key={n.label} to={n.to} {...(n.hash ? { hash: n.hash } : {})} className="text-muted-foreground transition-colors hover:text-secondary">
                 {n.label}
               </Link>
             ))}
@@ -43,7 +43,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         {open && (
           <nav className="flex flex-col gap-4 border-t border-border px-5 py-4 md:hidden">
             {NAV.map((n) => (
-              <Link key={n.label} to={n.to} hash={n.hash || undefined} onClick={() => setOpen(false)}>
+              <Link key={n.label} to={n.to} {...(n.hash ? { hash: n.hash } : {})} onClick={() => setOpen(false)}>
                 {n.label}
               </Link>
             ))}
