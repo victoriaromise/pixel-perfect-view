@@ -70,8 +70,18 @@ function AuthPage() {
 
   async function google() {
     sessionStorage.setItem("vp_redirect", target);
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}/auth?redirect=${encodeURIComponent(target)}` });
-    if (result.error) toast.error("Google sign-in failed. Please try again.");
+    const redirectTo = `${window.location.origin}/auth?redirect=${encodeURIComponent(target)}`;
+    const host = window.location.hostname;
+    // Lovable preview/hosting uses the managed broker; any other host (e.g. Vercel)
+    // uses the backend's standard Google OAuth with your own client ID/secret.
+    const onLovable = host.endsWith(".lovable.app") || host.endsWith(".lovableproject.com");
+    if (onLovable) {
+      const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: redirectTo });
+      if (result.error) toast.error("Google sign-in failed. Please try again.");
+      return;
+    }
+    const { error } = await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo } });
+    if (error) toast.error("Google sign-in failed. Please try again.");
   }
 
   return (
