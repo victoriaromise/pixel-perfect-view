@@ -2,6 +2,9 @@ import aiImages from "@/assets/flyer-ai-images.jpg.asset.json";
 import aiVideo from "@/assets/flyer-ai-video.png.asset.json";
 import vibe from "@/assets/flyer-vibe-coding.png.asset.json";
 import master from "@/assets/flyer-masterclass.jpg.asset.json";
+// Absolute host so flyers also load when the site is deployed outside Lovable (e.g. Vercel).
+const ASSET_HOST = "https://aispecialistcourse.lovable.app";
+
 
 export const CONTACT = {
   whatsappDisplay: "09012125850",
@@ -29,7 +32,7 @@ export const COURSES: Course[] = [
     title: "AI Prompting, AI Images & AI Flyers/Posters Professionally",
     subtitle: "Prompt like a pro and design visuals that sell",
     price: 3000,
-    flyer: aiImages.url,
+    flyer: ASSET_HOST + aiImages.url,
     outline: [
       "Prompting as a professional",
       "Creating professional and realistic images using AI",
@@ -44,7 +47,7 @@ export const COURSES: Course[] = [
     title: "AI Video Making",
     subtitle: "Creating Professional Videos and Movies With AI",
     price: 10000,
-    flyer: aiVideo.url,
+    flyer: ASSET_HOST + aiVideo.url,
     outline: [
       "Creating professional cinematic ads",
       "Creating professional UGC-style video content",
@@ -64,7 +67,7 @@ export const COURSES: Course[] = [
     title: "Vibe Coding",
     subtitle: "Creating Professional and Fully Functional Websites Using AI",
     price: 10000,
-    flyer: vibe.url,
+    flyer: ASSET_HOST + vibe.url,
     outline: [
       "AI Prompting for Coding",
       "Building websites with AI",
@@ -85,7 +88,7 @@ export const COURSES: Course[] = [
     title: "Advanced AI Masterclass",
     subtitle: "Learn the Complete AI Skillset",
     price: 20000,
-    flyer: master.url,
+    flyer: ASSET_HOST + master.url,
     outline: [
       "Everything in AI Prompting, Images & Flyers",
       "Everything in AI Video Making",
