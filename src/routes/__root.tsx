@@ -43,7 +43,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   const router = useRouter();
   useEffect(() => {
     // A page piece went stale after an update: reload once to fetch the fresh version.
-    if (/dynamically imported module|Importing a module script failed/i.test(error?.message ?? "")) {
+    if (/dynamically imported module|Importing a module script failed/i.test((error as Error)?.message ?? "")) {
       const key = "vp-chunk-reload";
       if (!sessionStorage.getItem(key)) {
         sessionStorage.setItem(key, "1");
