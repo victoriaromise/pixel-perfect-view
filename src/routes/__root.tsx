@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
@@ -37,12 +38,12 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
     // A page piece went stale after an update: reload once to fetch the fresh version.
-    if (/dynamically imported module|Importing a module script failed/i.test(error?.message ?? "")) {
+    if (/dynamically imported module|Importing a module script failed/i.test((error as Error)?.message ?? "")) {
       const key = "vp-chunk-reload";
       if (!sessionStorage.getItem(key)) {
         sessionStorage.setItem(key, "1");
@@ -89,7 +90,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
+      { name: "theme-color", content: "#769826" },
+      { name: "color-scheme", content: "light only" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { title: "VICTOR PROMISE" },
       { name: "description", content: "Practical AI courses by VICTOR PROMISE." },
       { property: "og:type", content: "website" },
